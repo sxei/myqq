@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j-1.2.dtd">
+<log4j:configuration debug="true" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- 设置根日志，这个决定不同级别的日志具体输出到哪些地方 -->
+	<root>
+		<priority value="debug" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</root>
+	
+	<!-- 控制台配置 -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[LXA][%p] %d{yyyy年MM月dd日 HH:mm:ss} %m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 文件配置 -->
+	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/lxa.log"/>
+		<param name="DatePattern" value="'-'yyyy-MM-dd'.txt'"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[LXA][%p] %d{yyyy年MM月dd日 HH:mm:ss:SSS} %l:%n%m%n%n"/>
+		</layout>
+	</appender>
+	
+	<!-- 对特殊类进行级别的特殊设置 -->
+	<logger name="com.lxa">
+		<level value="debug" />
+	</logger>
+	
+	<!-- 
+		格式化日志信息：
+		%d{yyyy-MM-dd} 时间
+		%p 模式，如INFO或者DEBUG
+		%c 类的全名
+		%L 行数
+		%l 具体调用的方法名（包括类全名）
+		%m 输出的信息
+		%n 换行
+	 -->
+
+</log4j:configuration>
